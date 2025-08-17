@@ -1034,8 +1034,10 @@ pfUI:RegisterModule("nameplates", "vanilla:tbc", function ()
       local channel, cast, nameSubtext, text, texture, startTime, endTime, isTradeSkill
 
       -- detect cast or channel bars
-      cast, nameSubtext, text, texture, startTime, endTime, isTradeSkill = UnitCastingInfo(target and "target" or name)
-      if not cast then channel, nameSubtext, text, texture, startTime, endTime, isTradeSkill = UnitChannelInfo(target and "target" or name) end
+      if target then
+        cast, nameSubtext, text, texture, startTime, endTime, isTradeSkill = UnitCastingInfo("target")
+        if not cast then channel, nameSubtext, text, texture, startTime, endTime, isTradeSkill = UnitChannelInfo("target") end
+      end
 
       -- read enemy casts from SuperWoW if enabled
       if superwow_active then
